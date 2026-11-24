@@ -196,6 +196,13 @@
   .again button { font: inherit; background: none; border: 0; padding: 0; color: var(--black); font-weight: 600; text-decoration: underline; cursor: pointer; }
   .updated { margin-top: 14px; font-size: 12px; color: #6e6e73; }
 
+  .next { margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: #fff; border: 1px solid #d4d4cf; font-size: 14px; color: #33332f; }
+  .next b { color: var(--black); }
+  .next .q { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: #6e6e73; margin-bottom: 6px; }
+  .next p { margin-top: 8px; font-size: 14px; }
+  .next p:first-of-type { margin-top: 0; }
+  .stuck { margin-top: 10px; font: inherit; font-weight: 700; font-size: 14px; background: none; border: 1.5px solid var(--black); border-radius: 999px; padding: 8px 14px; cursor: pointer; color: var(--black); }
+  .stuck:hover { background: var(--black); color: #fff; }
   #help { display: none; margin-top: 26px; padding-top: 22px; border-top: 1px solid #d4d4cf; }
   #help.show { display: block; }
   #help h3 { font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: 22px; line-height: 1.05; }
@@ -284,6 +291,9 @@
           <label for="hreason">What do you need? <span class="req">*</span></label>
           <select id="hreason">
             <option value="">Choose one</option>
+            <option>I've done this and nothing's changed</option>
+            <option>I filled in YouTube's form but it's not showing</option>
+            <option>I can't see Step 3 in YouTube Studio</option>
             <option>I need to use a new or different channel</option>
             <option>I need to register again</option>
             <option>My channel is linked to another agency</option>
@@ -291,6 +301,12 @@
             <option>Something else</option>
           </select>
           <span class="err">Please choose one.</span>
+        </div>
+        <div class="f" data-f="hchannel" id="hchannelWrap" style="display:none">
+          <label for="hchannel">Your channel ID <span class="req">*</span></label>
+          <input type="text" id="hchannel" placeholder="UCxxxxxxxxxxxxxxxxxxxxxx" maxlength="40" autocapitalize="off" spellcheck="false">
+          <span class="hint">Starts with UC. Copy it from <a href="https://www.youtube.com/account_advanced" target="_blank" rel="noopener">YouTube advanced settings</a> so we can find you.</span>
+          <span class="err">A channel ID starts with UC and is 24 characters long.</span>
         </div>
         <div class="f">
           <label for="hdetails">Anything we should know? <span class="opt">(optional)</span></label>
@@ -326,6 +342,18 @@
   function list(items) { return '<ol class="checklist">' + items.map(function (t, i) { return '<li><span class="n">0' + (i + 1) + '</span><span>' + t + '</span></li>'; }).join('') + '</ol>'; }
   var TICK = '<div class="tickbox">On YouTube\'s form, make sure <b>NOVARO</b> is ticked as your partner, or your channel won\'t link to us.</div>';
 
+  // "What if this doesn't change?" box with a Still stuck button that pre-fills the help form
+  function next(q, text, reason) {
+    return '<div class="next"><span class="q">' + q + '</span>' + text +
+      '<br><button type="button" class="stuck" data-reason="' + esc(reason) + '">Still stuck? Tell us →</button></div>';
+  }
+  var R_SAME = "I've done this and nothing's changed", R_FORM = "I filled in YouTube's form but it's not showing",
+      R_STEP3 = "I can't see Step 3 in YouTube Studio";
+  var ALREADY = next('Already filled in YouTube\'s form?',
+    '<p>YouTube updates its list once a day, so give it <b>48 hours</b>.</p>' +
+    '<p>Still showing this after 2 days? It didn\'t reach us. That\'s usually because <b>NOVARO wasn\'t ticked</b> or a <b>different channel ID</b> was used. Resubmit with the button above, everything\'s filled in for you. Sending it twice does no harm.</p>' +
+    '<p>Resubmitted and <b>still nothing 2 days later</b>?</p>', R_FORM);
+
   // Stage -> [badge class, journey step, title, body html]
   function niceDate(v) { var d = new Date(v); return v && !isNaN(d) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : v; }
 
@@ -335,30 +363,35 @@
     var s3 = STEP3 + '?ch=' + encodeURIComponent(r.id) + '&yt=' + encodeURIComponent((r.handle || '').replace(/^@/, '')) + '&email=' + encodeURIComponent(last.email);
     switch (r.stage) {
       case 'LIVE': return ['good', 6, "You're live on Shopping",
-        '<p>You\'re signed with Novaro P2P and enrolled in the Shopping affiliate programme. Start tagging products in your videos and Shorts.</p>'];
+        '<p>You\'re signed with Novaro P2P and enrolled in the Shopping affiliate programme. Start tagging products in your videos and Shorts.</p>' +
+        next('Problems tagging?', 'Can\'t find products or tags not sticking?', 'Something else')];
       case 'STEP3_SENT': return ['good', 5, "You're with YouTube for review",
         '<p>We\'ve asked the YouTube Shopping team to fast-track your Step 3 review. There\'s nothing to do until they email you.</p>' +
-        list(['YouTube emails you their decision.', 'Once approved, go to <b>Earn</b> in YouTube Studio and join the <b>Shopping affiliate programme</b>.', 'You can post now and tag products once Shopping is on.'])];
+        list(['YouTube emails you their decision.', 'Once approved, go to <b>Earn</b> in YouTube Studio and join the <b>Shopping affiliate programme</b>.', 'You can post now and tag products once Shopping is on.']) +
+        next('How long?', 'YouTube usually decides within <b>2 weeks</b> of us sending it. Nothing after that?', R_SAME)];
       case 'SIGNED': return ['act', 4, "You're signed with Novaro P2P" + (r.signed ? ' (since ' + esc(r.signed) + ')' : ''),
         '<p>Nice one, you\'re linked to us. Next is YouTube\'s monetisation steps. Open YouTube Studio on a computer and click <b>Earn</b>.</p>' +
         list(['Step 1: accept the <b>Base terms</b>.', 'Step 2: <b>sign up for AdSense for YouTube</b>.', 'When Step 3 <b>Get reviewed</b> shows as In progress, tell us below. YouTube won\'t notify you, so check every day or two.']) +
-        btn(s3, "I'm at Step 3", true)];
+        btn(s3, "I'm at Step 3", true) +
+        next('How long?', 'Step 3 normally shows <b>1 to 2 days</b> after AdSense is linked. Done both steps and can\'t see it after a week?', R_STEP3)];
       case 'PROCESSING': return ['wait', 3, 'YouTube is checking your channel',
-        '<p>Your form is in. YouTube runs its checks and signs you to Novaro P2P, which usually takes a few days. Nothing for you to do right now, check back here in a couple of days.</p>'];
+        '<p>Your form is in. YouTube runs its checks and signs you to Novaro P2P, which usually takes a few days. Nothing for you to do right now, check back here in a couple of days.</p>' +
+        next('How long?', 'Usually <b>3 to 5 days</b>. Still showing this after 7 days?', R_SAME)];
       case 'TO_ADD': return ['wait', 3, "We're adding you to our list",
-        '<p>YouTube needs your channel on Novaro P2P\'s list before it can sign you. We add it automatically, so there\'s nothing for you to do. Check back in 2 to 3 days.</p>'];
+        '<p>YouTube needs your channel on Novaro P2P\'s list before it can sign you. We add it automatically, so there\'s nothing for you to do. Check back in 2 to 3 days.</p>' +
+        next('How long?', 'Usually <b>2 to 3 days</b>. Still showing this after 5 days?', R_SAME)];
       case 'SIGNUP_ONLY': return ['act', 2, "You're halfway there",
         '<p>You\'ve signed up with Novaro P2P, but YouTube\'s form (step 2) hasn\'t come through yet.</p>' +
         list(['Open YouTube\'s form below. Your details are filled in.', 'Use the <b>email that owns your YouTube channel</b>.', 'Tick <b>NOVARO</b> and submit. Then check back here in a day or two.']) + TICK +
-        btn(form, "Open YouTube's form", true)];
+        btn(form, "Open YouTube's form", true) + ALREADY];
       case 'FORM_EMAIL': return ['act', 2, "YouTube couldn't match your email",
         '<p>The email you put on YouTube\'s form doesn\'t have access to this channel. It usually happens when the channel is a Brand Account or sits on a different Gmail.</p>' +
         list(['In YouTube Studio go to <b>Settings &gt; Permissions</b> and see which email is the <b>Owner</b>.', 'Fill in YouTube\'s form again using <b>that</b> email.', 'Tick <b>NOVARO</b> and submit.']) + TICK +
-        btn(form, "Fill in YouTube's form again", true)];
+        btn(form, "Fill in YouTube's form again", true) + next('Resubmitted?', 'It takes up to <b>48 hours</b> to update here. Still the same after 2 days?', R_SAME)];
       case 'FORM_BAD_ID': return ['act', 2, "Your channel ID didn't work",
         '<p>The channel ID on YouTube\'s form, <code>' + esc(r.id) + '</code>, isn\'t a live channel.</p>' +
         list(['Go to <a href="https://www.youtube.com/account_advanced" target="_blank" rel="noopener">YouTube advanced settings</a>.', 'Copy the <b>Channel ID</b> (starts with UC, 24 characters). Not the User ID.', 'Fill in YouTube\'s form again with it and tick <b>NOVARO</b>.']) +
-        btn(SIGNUP, 'Start the form again', true)];
+        btn(SIGNUP, 'Start the form again', true) + next('Resubmitted?', 'It takes up to <b>48 hours</b> to update here. Still the same after 2 days?', R_SAME)];
       case 'OTHER': return ['act', 2, 'Your channel is linked elsewhere',
         '<p>YouTube has this channel down with a different partner, or as opted out. We need to sort this one with you, so send us your details below.</p>', true];
       case 'REJECTED': case 'FLAGGED': return ['act', 2, 'We need to take a look',
@@ -373,7 +406,8 @@
       html = '<div class="chan"><span class="badge act">Not found</span><h3>We can\'t find you yet</h3>' +
         '<p>We can\'t see <code>' + esc(last.q) + '</code> on any of our lists. If you signed up in the last hour, check back later. Otherwise:</p>' +
         list(['Try your <b>channel ID</b> instead of your handle (it starts with UC).', 'If you\'ve never signed up, start on our sign-up page. It takes two minutes.', 'Then fill in YouTube\'s form and tick <b>NOVARO</b>.']) + TICK +
-        btn(SIGNUP, 'Sign up with Novaro P2P', true) + '</div>';
+        btn(SIGNUP, 'Sign up with Novaro P2P', true) +
+        next('Already filled in YouTube\'s form?', '<p>You still need the Novaro P2P sign-up too. It takes two minutes and gives you a pre-filled YouTube form with NOVARO already ticked, so use that one.</p><p>Done both and <b>still not showing after 2 days</b>?</p>', R_FORM) + '</div>';
     }
     rs.forEach(function (r) {
       var v = view(r); if (!v) return;
@@ -397,6 +431,8 @@
     if (on) {
       $('hemail').value = $('hemail').value || last.email;
       if (reason) $('hreason').value = reason;
+      // No match: ask for the channel ID so we can actually find them
+      $('hchannelWrap').style.display = last.results.length ? 'none' : '';
     }
   }
 
@@ -426,6 +462,12 @@
       .then(function () { b.disabled = false; b.innerHTML = 'Check my status <span class="arrow">→</span>'; });
   });
 
+  $('chans').addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.stuck'); if (!b) return;
+    showHelp(true, b.getAttribute('data-reason'));
+    $('help').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
   $('restart').addEventListener('click', function () {
     card.classList.remove('has-result'); showHelp(false); $('q').value = ''; $('q').focus();
     document.querySelectorAll('#journey li').forEach(function (li) { li.classList.remove('on'); });
@@ -436,14 +478,17 @@
     e.preventDefault();
     var st = $('hstatus'); st.className = 'status';
     var name = $('hname').value.trim(), email = $('hemail').value.trim(), reason = $('hreason').value;
-    var bad = { hname: name.length < 2, hemail: !okEmail(email), hreason: !reason };
+    var cid = $('hchannel').value.trim().replace(/^.*channel\//, '');
+    var bad = { hname: name.length < 2, hemail: !okEmail(email), hreason: !reason,
+      hchannel: !last.results.length && !/^UC[\w-]{22}$/.test(cid) };
     Object.keys(bad).forEach(function (k) { document.querySelector('[data-f="' + k + '"]').classList.toggle('bad', bad[k]); });
-    if (bad.hname || bad.hemail || bad.hreason) return;
+    if (bad.hname || bad.hemail || bad.hreason || bad.hchannel) return;
     var b = $('hsend'); b.disabled = true; b.innerHTML = 'Sending… <span class="arrow">→</span>';
     var data = {
       action: 'help', name: name, email: email, reason: reason, details: $('hdetails').value.trim(),
       channel: last.results.length ? last.results.map(function (r) { return (r.handle ? r.handle + ' ' : '') + r.id; }).join(', ') : last.q,
       stage: last.results.length ? last.results.map(function (r) { return r.stage; }).join(', ') : 'NO_RECORD',
+      channelId: cid,
       company: $('company').value
     };
     fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
