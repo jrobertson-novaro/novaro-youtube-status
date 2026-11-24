@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Novaro × YouTube Shopping | Check your status</title>
+<meta name="description" content="Signed up for YouTube Shopping with Novaro? See where your channel is up to and what to do next.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0C0C0C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0C0C0C;
+    --panel: #141414;
+    --paper: #EDEDEA;
+    --grey: #8F8F8A;
+    --line: #2A2A2A;
+    --rasp: #e73058;
+    --rasp-dark: #d41e45;
+    --ok: #22c55e;
+    --err: #ef4444;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: #fff;
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: 0.04em; }
+
+  /* Header */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px clamp(16px, 4vw, 48px);
+  }
+  .logo { font-weight: 800; font-stretch: 125%; letter-spacing: 0.02em; font-size: 18px; }
+  .logo i { font-style: normal; color: var(--grey); font-weight: 400; }
+  .onair {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px;
+    font-size: 11px; text-transform: uppercase;
+  }
+  .onair::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--rasp);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.35; } }
+
+  /* Layout */
+  .wrap {
+    display: grid; grid-template-columns: 1fr; gap: 40px;
+    padding: 24px clamp(16px, 4vw, 48px) 64px;
+    max-width: 1280px; margin: 0 auto;
+  }
+  @media (min-width: 980px) {
+    .wrap { grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: start; padding-top: 40px; }
+    .pitch { position: sticky; top: 32px; }
+  }
+
+  /* Pitch */
+  .kicker { color: var(--grey); font-size: 12px; text-transform: uppercase; margin-bottom: 20px; }
+  h1 {
+    font-weight: 800; font-stretch: 125%; text-transform: uppercase;
+    font-size: clamp(40px, 7vw, 84px); line-height: 0.92; letter-spacing: -0.02em;
+  }
+  h1 em { font-style: normal; color: var(--rasp); }
+  .lede { margin-top: 24px; font-size: clamp(17px, 1.6vw, 19px); color: #d6d6d2; max-width: 34em; }
+  .perks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .perks span { border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 13px; color: #d6d6d2; }
+  .btn.jump { display: inline-flex; margin-top: 24px; width: auto; padding: 14px 22px; background: var(--rasp); }
+  .btn.jump:hover { background: var(--rasp-dark); }
+  @media (min-width: 980px) { .btn.jump { display: none; } }
+  @media (max-width: 560px) { .onair { display: none; } }
+  .fine { margin-top: 28px; color: var(--grey); font-size: 13px; max-width: 38em; }
+
+  /* Card */
+  .card {
+    background: var(--paper); color: var(--black);
+    border-radius: 20px; padding: clamp(22px, 3.5vw, 40px);
+    position: relative; overflow: hidden;
+  }
+  .card::after {
+    content: ''; position: absolute; width: 220px; height: 220px; border-radius: 50%;
+    border: 3px solid var(--rasp); top: -120px; right: -110px; pointer-events: none;
+  }
+  .card-label { font-size: 11px; text-transform: uppercase; color: #6e6e73; }
+  .card h2 { font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(24px, 3vw, 32px); line-height: 1; margin: 10px 0 6px; }
+  .card .sub { color: #55554f; font-size: 15px; margin-bottom: 26px; }
+
+  fieldset { border: 0; margin-top: 22px; }
+  legend { font-size: 11px; text-transform: uppercase; color: #6e6e73; margin-bottom: 12px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em; }
+  .row { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 560px) { .row.two { grid-template-columns: 1fr 1fr; } }
+  .f { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .row .f { margin-bottom: 0; }
+  .row + .f, .row + .row { margin-top: 14px; }
+  label { font-weight: 600; font-size: 14px; }
+  label .opt { font-weight: 400; color: #6e6e73; font-size: 13px; }
+  label .req { color: var(--rasp); }
+  input[type=text], input[type=email], input[type=tel], select {
+    width: 100%; font: inherit; font-size: 16px; color: var(--black);
+    background: #fff; border: 1.5px solid #d4d4cf; border-radius: 12px;
+    padding: 12px 14px; transition: border-color 150ms var(--ease), box-shadow 150ms var(--ease);
+    appearance: none; -webkit-appearance: none;
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230C0C0C' stroke-width='1.8' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+  }
+  input:focus, select:focus { outline: none; border-color: var(--black); box-shadow: 0 0 0 3px rgba(231, 48, 88, 0.25); }
+  .prefix { position: relative; }
+  .prefix::before { content: '@'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #6e6e73; pointer-events: none; }
+  .prefix input { padding-left: 32px; }
+  .hint { font-size: 13px; color: #6e6e73; }
+  .hint a { color: var(--black); font-weight: 600; }
+  .f.bad input, .f.bad select { border-color: var(--err); }
+  .err { display: none; font-size: 13px; color: var(--err); font-weight: 500; }
+  .f.bad .err { display: block; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .consent { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; margin-top: 22px; font-size: 14px; color: #33332f; cursor: pointer; }
+  .consent input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--rasp); cursor: pointer; }
+  .consent.bad { color: var(--err); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; margin-top: 24px; padding: 16px 22px;
+    font: inherit; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: 15px; letter-spacing: 0.02em;
+    color: #fff; background: var(--black); border: 0; border-radius: 999px; cursor: pointer; text-decoration: none;
+    transition: background 250ms var(--ease), transform 150ms var(--ease);
+  }
+  .btn:hover { background: #262626; }
+  .btn:active { transform: scale(0.99); }
+  .btn.rasp { background: var(--rasp); }
+  .btn.rasp:hover { background: var(--rasp-dark); }
+  .btn .arrow { transition: transform 250ms var(--ease); }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* Step 2 */
+  .done { display: none; }
+  .card.is-done form { display: none; }
+  .card.is-done .done { display: block; animation: up 400ms var(--ease); }
+  @keyframes up { from { opacity: 0; transform: translateY(12px); } }
+  .tick { width: 48px; height: 48px; border-radius: 50%; background: var(--black); color: #fff; display: grid; place-items: center; font-size: 22px; margin-bottom: 16px; }
+  .checklist { list-style: none; margin: 18px 0 4px; border-top: 1px solid #d4d4cf; }
+  .checklist li { display: grid; grid-template-columns: 28px 1fr; gap: 8px; padding: 12px 0; border-bottom: 1px solid #d4d4cf; font-size: 15px; }
+  .checklist .n { font-family: 'IBM Plex Mono', monospace; color: var(--rasp); font-weight: 600; font-size: 13px; padding-top: 2px; }
+  .summary { margin-top: 18px; background: #fff; border-radius: 12px; padding: 14px 16px; font-size: 14px; }
+  .summary div { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; }
+  .summary dt { color: #6e6e73; }
+  .summary dd { font-weight: 600; text-align: right; word-break: break-all; }
+  .ref { margin-top: 16px; font-size: 12px; color: #6e6e73; }
+  .after { display: none; margin-top: 16px; padding: 12px 14px; border-radius: 12px; background: #dcfce7; color: #15803d; font-size: 14px; }
+  .after.show { display: block; }
+
+  footer { border-top: 1px solid var(--line); padding: 22px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: var(--grey); font-size: 12px; }
+  footer b { color: #fff; font-weight: 800; font-stretch: 125%; }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
+
+  
+  /* Status checker */
+  .journey { list-style: none; margin-top: 32px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 8px 18px; max-width: 34em; }
+  .journey li { display: grid; grid-template-columns: 30px 1fr; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; color: #d6d6d2; }
+  .journey li:last-child { border-bottom: 0; }
+  .journey .n { font-family: 'IBM Plex Mono', monospace; color: var(--rasp); font-weight: 600; font-size: 13px; padding-top: 2px; }
+  .journey b { color: #fff; }
+  .journey li.on { color: #fff; }
+  .journey li.on .n::after { content: ' \2190'; }
+
+  .result { display: none; }
+  .card.has-result form#form { display: none; }
+  .card.has-result .result { display: block; animation: up 400ms var(--ease); }
+  .badge { display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 6px 10px; border-radius: 999px; background: #fff; border: 1px solid #d4d4cf; }
+  .badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--grey)); }
+  .badge.good { --c: var(--ok); } .badge.wait { --c: #f59e0b; } .badge.act { --c: var(--rasp); }
+  .chan { margin-top: 26px; padding-top: 22px; border-top: 1px solid #d4d4cf; }
+  .chan:first-of-type { margin-top: 18px; padding-top: 0; border-top: 0; }
+  .chan h3 { font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(22px, 2.6vw, 28px); line-height: 1.02; margin: 12px 0 8px; }
+  .chan .who { font-size: 13px; color: #6e6e73; font-family: 'IBM Plex Mono', monospace; word-break: break-all; }
+  .chan p { margin-top: 10px; font-size: 15px; color: #33332f; }
+  .chan .btn { margin-top: 18px; }
+  .chan .checklist { margin-top: 14px; }
+  .chan code { font-family: 'IBM Plex Mono', monospace; font-size: 13px; background: #fff; padding: 2px 6px; border-radius: 6px; word-break: break-all; }
+  .tickbox { margin-top: 14px; padding: 12px 14px; border-radius: 12px; border: 2px solid var(--rasp); background: rgba(231, 48, 88, 0.08); font-size: 14px; }
+  .again { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 14px; }
+  .again button { font: inherit; background: none; border: 0; padding: 0; color: var(--black); font-weight: 600; text-decoration: underline; cursor: pointer; }
+  .updated { margin-top: 14px; font-size: 12px; color: #6e6e73; }
+
+  #help { display: none; margin-top: 26px; padding-top: 22px; border-top: 1px solid #d4d4cf; }
+  #help.show { display: block; }
+  #help h3 { font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: 22px; line-height: 1.05; }
+  textarea { width: 100%; font: inherit; font-size: 16px; background: #fff; border: 1.5px solid #d4d4cf; border-radius: 12px; padding: 12px 14px; min-height: 96px; resize: vertical; }
+  textarea:focus { outline: none; border-color: var(--black); box-shadow: 0 0 0 3px rgba(231, 48, 88, 0.25); }
+  .status { display: none; margin-top: 16px; padding: 12px 14px; border-radius: 12px; font-size: 14px; }
+  .status.err { display: block; background: #fee2e2; color: #b91c1c; }
+  .status.okay { display: block; background: #dcfce7; color: #15803d; }
+  .btn[disabled] { opacity: 0.6; cursor: progress; }
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">NOVARO<i>&nbsp;×&nbsp;</i>YOUTUBE SHOPPING</span>
+  <span class="onair mono">Status checker</span>
+</header>
+
+<main class="wrap">
+  <section class="pitch">
+    <div class="kicker mono">( YouTube Shopping · Where am I? )</div>
+    <h1>Stuck? <em>Check your status.</em></h1>
+    <p class="lede">Pop in your YouTube handle and we'll show you exactly where your channel is up to, and the one thing you need to do next. It updates every 30 minutes.</p>
+
+    <ol class="journey" id="journey">
+      <li data-s="1"><span class="n">01</span><span><b>Sign up with Novaro</b> on our sign-up page.</span></li>
+      <li data-s="2"><span class="n">02</span><span><b>Fill in YouTube's form</b> with the email that owns your channel, and tick <b>NOVARO</b>.</span></li>
+      <li data-s="3"><span class="n">03</span><span><b>YouTube checks your channel</b> and signs you to Novaro. Takes a few days.</span></li>
+      <li data-s="4"><span class="n">04</span><span><b>YouTube Studio &gt; Earn:</b> accept the terms and link AdSense.</span></li>
+      <li data-s="5"><span class="n">05</span><span><b>Reached Step 3?</b> Tell us and we fast-track your review.</span></li>
+      <li data-s="6"><span class="n">06</span><span><b>Join Shopping</b> and start tagging products.</span></li>
+    </ol>
+
+    <a class="btn jump" href="#card">Check my status <span class="arrow">↓</span></a>
+    <p class="fine">YouTube makes the final call at every step. This page shows what YouTube's systems and ours can see, so if you've only just done something, give it a day.</p>
+  </section>
+
+  <section class="card" id="card" aria-live="polite">
+    <form id="form" novalidate>
+      <div class="card-label mono">Status checker</div>
+      <h2>Where am I up to?</h2>
+      <p class="sub">Use the channel you signed up with.</p>
+
+      <div class="f" data-f="q">
+        <label for="q">YouTube handle or channel ID <span class="req">*</span></label>
+        <input type="text" id="q" name="q" placeholder="@yourhandle or UC..." maxlength="120" autocapitalize="off" spellcheck="false" required>
+        <span class="hint">Your channel ID starts with UC. Find it in <a href="https://www.youtube.com/account_advanced" target="_blank" rel="noopener">YouTube advanced settings</a>.</span>
+        <span class="err">Please add your handle or channel ID.</span>
+      </div>
+      <div class="f" data-f="email">
+        <label for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" autocomplete="email" maxlength="160" required>
+        <span class="hint">The one you signed up with. We only use it if we need to get in touch.</span>
+        <span class="err">Please add a valid email.</span>
+      </div>
+
+      <button class="btn" type="submit" id="go">Check my status <span class="arrow">→</span></button>
+      <div class="status" id="status"></div>
+    </form>
+
+    <div class="result" id="result">
+      <div class="card-label mono">Your status</div>
+      <div id="chans"></div>
+      <p class="updated mono" id="updated"></p>
+      <div class="again">
+        <button type="button" id="restart">Check another channel</button>
+        <button type="button" id="openHelp">Need to use a new channel or start again?</button>
+      </div>
+
+      <form id="help" novalidate>
+        <div class="card-label mono">Talk to Novaro</div>
+        <h3>We'll sort this one with you</h3>
+        <p class="sub" style="margin:8px 0 0">Only for things you can't fix from this page. We'll email you back.</p>
+        <div class="row two" style="margin-top:18px">
+          <div class="f" data-f="hname">
+            <label for="hname">Full name <span class="req">*</span></label>
+            <input type="text" id="hname" autocomplete="name" maxlength="120">
+            <span class="err">Please add your name.</span>
+          </div>
+          <div class="f" data-f="hemail">
+            <label for="hemail">Email <span class="req">*</span></label>
+            <input type="email" id="hemail" autocomplete="email" maxlength="160">
+            <span class="err">Please add a valid email.</span>
+          </div>
+        </div>
+        <div class="f" data-f="hreason" style="margin-top:14px">
+          <label for="hreason">What do you need? <span class="req">*</span></label>
+          <select id="hreason">
+            <option value="">Choose one</option>
+            <option>I need to use a new or different channel</option>
+            <option>I need to register again</option>
+            <option>My channel is linked to another agency</option>
+            <option>My status here looks wrong</option>
+            <option>Something else</option>
+          </select>
+          <span class="err">Please choose one.</span>
+        </div>
+        <div class="f">
+          <label for="hdetails">Anything we should know? <span class="opt">(optional)</span></label>
+          <textarea id="hdetails" maxlength="1000"></textarea>
+        </div>
+        <div class="hp" aria-hidden="true"><label for="company">Company</label><input type="text" id="company" tabindex="-1" autocomplete="off"></div>
+        <button class="btn rasp" type="submit" id="hsend">Send to Novaro <span class="arrow">→</span></button>
+        <div class="status" id="hstatus"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span><b>NOVARO</b> Social Commerce · 127 Portland St, Manchester M1 4PZ</span>
+  <span>YouTube is a trademark of Google LLC. Novaro is an independent agency.</span>
+</footer>
+
+<script>
+(function () {
+  // Same Apps Script web app as the Step 3 page (GET ?action=status, POST {action:'help'})
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbw9_nnv6QqyS3SbgIgVXXk3EdLPwq6e0smr8Pr2hnYhC-dbwv29yXE9ya82ImjUKTYgaA/exec';
+  var SIGNUP = 'https://novaro-youtube-shopping.vercel.app/';
+  var STEP3 = 'https://jrobertson-novaro.github.io/novaro-youtube-step3/';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var card = $('card'), params = new URLSearchParams(location.search);
+  var last = { q: '', email: '', results: [] };
+
+  function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+  function okEmail(v) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
+  function btn(href, text, rasp) { return '<a class="btn' + (rasp ? ' rasp' : '') + '" href="' + esc(href) + '" target="_blank" rel="noopener">' + text + ' <span class="arrow">→</span></a>'; }
+  function list(items) { return '<ol class="checklist">' + items.map(function (t, i) { return '<li><span class="n">0' + (i + 1) + '</span><span>' + t + '</span></li>'; }).join('') + '</ol>'; }
+  var TICK = '<div class="tickbox">On YouTube\'s form, make sure <b>NOVARO</b> is ticked as your partner, or your channel won\'t link to us.</div>';
+
+  // Stage -> [badge class, journey step, title, body html]
+  function niceDate(v) { var d = new Date(v); return v && !isNaN(d) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : v; }
+
+  function view(r) {
+    r.signed = niceDate(r.signed);
+    var form = r.formLink || SIGNUP;
+    var s3 = STEP3 + '?ch=' + encodeURIComponent(r.id) + '&yt=' + encodeURIComponent((r.handle || '').replace(/^@/, '')) + '&email=' + encodeURIComponent(last.email);
+    switch (r.stage) {
+      case 'LIVE': return ['good', 6, "You're live on Shopping",
+        '<p>You\'re signed with Novaro and enrolled in the Shopping affiliate programme. Start tagging products in your videos and Shorts.</p>'];
+      case 'STEP3_SENT': return ['good', 5, "You're with YouTube for review",
+        '<p>We\'ve asked the YouTube Shopping team to fast-track your Step 3 review. There\'s nothing to do until they email you.</p>' +
+        list(['YouTube emails you their decision.', 'Once approved, go to <b>Earn</b> in YouTube Studio and join the <b>Shopping affiliate programme</b>.', 'You can post now and tag products once Shopping is on.'])];
+      case 'SIGNED': return ['act', 4, "You're signed with Novaro" + (r.signed ? ' (since ' + esc(r.signed) + ')' : ''),
+        '<p>Nice one, you\'re linked to us. Next is YouTube\'s monetisation steps. Open YouTube Studio on a computer and click <b>Earn</b>.</p>' +
+        list(['Step 1: accept the <b>Base terms</b>.', 'Step 2: <b>sign up for AdSense for YouTube</b>.', 'When Step 3 <b>Get reviewed</b> shows as In progress, tell us below. YouTube won\'t notify you, so check every day or two.']) +
+        btn(s3, "I'm at Step 3", true)];
+      case 'PROCESSING': return ['wait', 3, 'YouTube is checking your channel',
+        '<p>Your form is in. YouTube runs its checks and signs you to Novaro, which usually takes a few days. Nothing for you to do right now, check back here in a couple of days.</p>'];
+      case 'TO_ADD': return ['wait', 3, "We're adding you to our list",
+        '<p>YouTube needs your channel on Novaro\'s list before it can sign you. We add it automatically, so there\'s nothing for you to do. Check back in 2 to 3 days.</p>'];
+      case 'SIGNUP_ONLY': return ['act', 2, "You're halfway there",
+        '<p>You\'ve signed up with Novaro, but YouTube\'s form (step 2) hasn\'t come through yet.</p>' +
+        list(['Open YouTube\'s form below. Your details are filled in.', 'Use the <b>email that owns your YouTube channel</b>.', 'Tick <b>NOVARO</b> and submit. Then check back here in a day or two.']) + TICK +
+        btn(form, "Open YouTube's form", true)];
+      case 'FORM_EMAIL': return ['act', 2, "YouTube couldn't match your email",
+        '<p>The email you put on YouTube\'s form doesn\'t have access to this channel. It usually happens when the channel is a Brand Account or sits on a different Gmail.</p>' +
+        list(['In YouTube Studio go to <b>Settings &gt; Permissions</b> and see which email is the <b>Owner</b>.', 'Fill in YouTube\'s form again using <b>that</b> email.', 'Tick <b>NOVARO</b> and submit.']) + TICK +
+        btn(form, "Fill in YouTube's form again", true)];
+      case 'FORM_BAD_ID': return ['act', 2, "Your channel ID didn't work",
+        '<p>The channel ID on YouTube\'s form, <code>' + esc(r.id) + '</code>, isn\'t a live channel.</p>' +
+        list(['Go to <a href="https://www.youtube.com/account_advanced" target="_blank" rel="noopener">YouTube advanced settings</a>.', 'Copy the <b>Channel ID</b> (starts with UC, 24 characters). Not the User ID.', 'Fill in YouTube\'s form again with it and tick <b>NOVARO</b>.']) +
+        btn(SIGNUP, 'Start the form again', true)];
+      case 'OTHER': return ['act', 2, 'Your channel is linked elsewhere',
+        '<p>YouTube has this channel down with a different partner, or as opted out. We need to sort this one with you, so send us your details below.</p>', true];
+      case 'REJECTED': case 'FLAGGED': return ['act', 2, 'We need to take a look',
+        '<p>YouTube has flagged something on your channel that we need to check' + (r.detail ? ': <i>' + esc(r.detail) + '</i>' : '') + '. Send us your details below and we\'ll come back to you.</p>', true];
+    }
+    return null;
+  }
+
+  function render(j) {
+    var rs = j.results || [], html = '', step = 1, needHelp = false;
+    if (!rs.length) {
+      html = '<div class="chan"><span class="badge act">Not found</span><h3>We can\'t find you yet</h3>' +
+        '<p>We can\'t see <code>' + esc(last.q) + '</code> on any of our lists. If you signed up in the last hour, check back later. Otherwise:</p>' +
+        list(['Try your <b>channel ID</b> instead of your handle (it starts with UC).', 'If you\'ve never signed up, start on our sign-up page. It takes two minutes.', 'Then fill in YouTube\'s form and tick <b>NOVARO</b>.']) + TICK +
+        btn(SIGNUP, 'Sign up with Novaro', true) + '</div>';
+    }
+    rs.forEach(function (r) {
+      var v = view(r); if (!v) return;
+      step = Math.max(step, v[1]); if (v[4]) needHelp = true;
+      html += '<div class="chan"><span class="badge ' + v[0] + '">' + esc(r.label || r.stage) + '</span>' +
+        '<h3>' + v[2] + '</h3><div class="who">' + esc(r.handle) + (r.handle ? ' · ' : '') + esc(r.id) + '</div>' + v[3] + '</div>';
+    });
+    $('chans').innerHTML = html;
+    $('updated').textContent = j.updated ? 'Our lists were last ' + j.updated.replace(/^Updated/, 'updated') + ' (UK time).' : '';
+    document.querySelectorAll('#journey li').forEach(function (li) { li.classList.toggle('on', +li.dataset.s === (rs.length ? step : 1)); });
+    card.classList.add('has-result');
+    showHelp(needHelp, rs.length && rs.some(function (r) { return r.stage === 'OTHER'; }) ? 'My channel is linked to another agency' : '');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showHelp(on, reason) {
+    $('help').classList.toggle('show', !!on);
+    if (on) {
+      $('hemail').value = $('hemail').value || last.email;
+      if (reason) $('hreason').value = reason;
+    }
+  }
+
+  function get(q, email) {
+    var u = ENDPOINT + '?action=status&q=' + encodeURIComponent(q) + '&email=' + encodeURIComponent(email);
+    return fetch(u).then(function (r) { return r.json(); }).then(function (j) { if (!j.ok) throw new Error(j.error); return j; });
+  }
+
+  if (params.get('q')) $('q').value = params.get('q');
+  if (params.get('email')) $('email').value = params.get('email');
+
+  ['q', 'email'].forEach(function (k) { $(k).addEventListener('input', function () { document.querySelector('[data-f="' + k + '"]').classList.remove('bad'); }); });
+
+  $('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var q = $('q').value.trim(), email = $('email').value.trim(), st = $('status');
+    st.className = 'status';
+    var badQ = q.replace(/^@/, '').length < 2, badE = !okEmail(email);
+    document.querySelector('[data-f="q"]').classList.toggle('bad', badQ);
+    document.querySelector('[data-f="email"]').classList.toggle('bad', badE);
+    if (badQ || badE) return;
+    var b = $('go'); b.disabled = true; b.innerHTML = 'Checking… <span class="arrow">→</span>';
+    last.q = q; last.email = email;
+    get(q, email).catch(function () { return new Promise(function (ok) { setTimeout(ok, 1500); }).then(function () { return get(q, email); }); })
+      .then(function (j) { last.results = j.results || []; render(j); })
+      .catch(function () { st.className = 'status err'; st.textContent = "Sorry, we couldn't check right now. Please try again in a minute."; })
+      .then(function () { b.disabled = false; b.innerHTML = 'Check my status <span class="arrow">→</span>'; });
+  });
+
+  $('restart').addEventListener('click', function () {
+    card.classList.remove('has-result'); showHelp(false); $('q').value = ''; $('q').focus();
+    document.querySelectorAll('#journey li').forEach(function (li) { li.classList.remove('on'); });
+  });
+  $('openHelp').addEventListener('click', function () { showHelp(true); $('help').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+
+  $('help').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var st = $('hstatus'); st.className = 'status';
+    var name = $('hname').value.trim(), email = $('hemail').value.trim(), reason = $('hreason').value;
+    var bad = { hname: name.length < 2, hemail: !okEmail(email), hreason: !reason };
+    Object.keys(bad).forEach(function (k) { document.querySelector('[data-f="' + k + '"]').classList.toggle('bad', bad[k]); });
+    if (bad.hname || bad.hemail || bad.hreason) return;
+    var b = $('hsend'); b.disabled = true; b.innerHTML = 'Sending… <span class="arrow">→</span>';
+    var data = {
+      action: 'help', name: name, email: email, reason: reason, details: $('hdetails').value.trim(),
+      channel: last.results.length ? last.results.map(function (r) { return (r.handle ? r.handle + ' ' : '') + r.id; }).join(', ') : last.q,
+      stage: last.results.length ? last.results.map(function (r) { return r.stage; }).join(', ') : 'NO_RECORD',
+      company: $('company').value
+    };
+    fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (!j.ok) throw new Error(j.error); $('help').innerHTML = '<div class="status okay">Thanks ' + esc(name.split(' ')[0]) + ', that\'s with the Novaro team. We\'ll email you at ' + esc(email) + '.</div>'; })
+      .catch(function () { b.disabled = false; b.innerHTML = 'Send to Novaro <span class="arrow">→</span>'; st.className = 'status err'; st.textContent = "Sorry, that didn't send. Please try again."; });
+  });
+})();
+</script>
+</body>
+</html>
