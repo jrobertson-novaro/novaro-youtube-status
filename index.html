@@ -381,6 +381,9 @@
       html += '<div class="chan"><span class="badge ' + v[0] + '">' + esc(r.label || r.stage) + '</span>' +
         '<h3>' + v[2] + '</h3><div class="who">' + esc(r.handle) + (r.handle ? ' · ' : '') + esc(r.id) + '</div>' + v[3] + '</div>';
     });
+    if (rs.length > 1) {
+      html = '<div class="tickbox" style="margin-top:14px">We have <b>' + rs.length + ' channel IDs</b> on file for this. That usually means a typo on one of the forms. Check which ID is really yours in <a href="https://www.youtube.com/account_advanced" target="_blank" rel="noopener">YouTube advanced settings</a> and follow the steps for that one. The rest you can ignore.</div>' + html;
+    }
     $('chans').innerHTML = html;
     $('updated').textContent = j.updated ? 'Our lists were last ' + j.updated.replace(/^Updated/, 'updated') + ' (UK time).' : '';
     document.querySelectorAll('#journey li').forEach(function (li) { li.classList.toggle('on', +li.dataset.s === (rs.length ? step : 1)); });
