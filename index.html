@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Novaro × YouTube Shopping | Check your status</title>
-<meta name="description" content="Signed up for YouTube Shopping with Novaro? See where your channel is up to and what to do next.">
+<title>Novaro P2P × YouTube Shopping | Check your status</title>
+<meta name="description" content="Signed up for YouTube Shopping with Novaro P2P? See where your channel is up to and what to do next.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0C0C0C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -209,7 +209,7 @@
 </head>
 <body>
 <header>
-  <span class="logo">NOVARO<i>&nbsp;×&nbsp;</i>YOUTUBE SHOPPING</span>
+  <span class="logo">NOVARO P2P<i>&nbsp;×&nbsp;</i>YOUTUBE SHOPPING</span>
   <span class="onair mono">Status checker</span>
 </header>
 
@@ -220,9 +220,9 @@
     <p class="lede">Pop in your YouTube handle and we'll show you exactly where your channel is up to, and the one thing you need to do next. It updates every 30 minutes.</p>
 
     <ol class="journey" id="journey">
-      <li data-s="1"><span class="n">01</span><span><b>Sign up with Novaro</b> on our sign-up page.</span></li>
+      <li data-s="1"><span class="n">01</span><span><b>Sign up with Novaro P2P</b> on our sign-up page.</span></li>
       <li data-s="2"><span class="n">02</span><span><b>Fill in YouTube's form</b> with the email that owns your channel, and tick <b>NOVARO</b>.</span></li>
-      <li data-s="3"><span class="n">03</span><span><b>YouTube checks your channel</b> and signs you to Novaro. Takes a few days.</span></li>
+      <li data-s="3"><span class="n">03</span><span><b>YouTube checks your channel</b> and signs you to Novaro P2P. Takes a few days.</span></li>
       <li data-s="4"><span class="n">04</span><span><b>YouTube Studio &gt; Earn:</b> accept the terms and link AdSense.</span></li>
       <li data-s="5"><span class="n">05</span><span><b>Reached Step 3?</b> Tell us and we fast-track your review.</span></li>
       <li data-s="6"><span class="n">06</span><span><b>Join Shopping</b> and start tagging products.</span></li>
@@ -265,7 +265,7 @@
       </div>
 
       <form id="help" novalidate>
-        <div class="card-label mono">Talk to Novaro</div>
+        <div class="card-label mono">Talk to Novaro P2P</div>
         <h3>We'll sort this one with you</h3>
         <p class="sub" style="margin:8px 0 0">Only for things you can't fix from this page. We'll email you back.</p>
         <div class="row two" style="margin-top:18px">
@@ -297,7 +297,7 @@
           <textarea id="hdetails" maxlength="1000"></textarea>
         </div>
         <div class="hp" aria-hidden="true"><label for="company">Company</label><input type="text" id="company" tabindex="-1" autocomplete="off"></div>
-        <button class="btn rasp" type="submit" id="hsend">Send to Novaro <span class="arrow">→</span></button>
+        <button class="btn rasp" type="submit" id="hsend">Send to Novaro P2P <span class="arrow">→</span></button>
         <div class="status" id="hstatus"></div>
       </form>
     </div>
@@ -305,8 +305,8 @@
 </main>
 
 <footer>
-  <span><b>NOVARO</b> Social Commerce · 127 Portland St, Manchester M1 4PZ</span>
-  <span>YouTube is a trademark of Google LLC. Novaro is an independent agency.</span>
+  <span><b>NOVARO P2P</b> · 127 Portland St, Manchester M1 4PZ</span>
+  <span>YouTube is a trademark of Google LLC. Novaro P2P is an independent agency.</span>
 </footer>
 
 <script>
@@ -335,20 +335,20 @@
     var s3 = STEP3 + '?ch=' + encodeURIComponent(r.id) + '&yt=' + encodeURIComponent((r.handle || '').replace(/^@/, '')) + '&email=' + encodeURIComponent(last.email);
     switch (r.stage) {
       case 'LIVE': return ['good', 6, "You're live on Shopping",
-        '<p>You\'re signed with Novaro and enrolled in the Shopping affiliate programme. Start tagging products in your videos and Shorts.</p>'];
+        '<p>You\'re signed with Novaro P2P and enrolled in the Shopping affiliate programme. Start tagging products in your videos and Shorts.</p>'];
       case 'STEP3_SENT': return ['good', 5, "You're with YouTube for review",
         '<p>We\'ve asked the YouTube Shopping team to fast-track your Step 3 review. There\'s nothing to do until they email you.</p>' +
         list(['YouTube emails you their decision.', 'Once approved, go to <b>Earn</b> in YouTube Studio and join the <b>Shopping affiliate programme</b>.', 'You can post now and tag products once Shopping is on.'])];
-      case 'SIGNED': return ['act', 4, "You're signed with Novaro" + (r.signed ? ' (since ' + esc(r.signed) + ')' : ''),
+      case 'SIGNED': return ['act', 4, "You're signed with Novaro P2P" + (r.signed ? ' (since ' + esc(r.signed) + ')' : ''),
         '<p>Nice one, you\'re linked to us. Next is YouTube\'s monetisation steps. Open YouTube Studio on a computer and click <b>Earn</b>.</p>' +
         list(['Step 1: accept the <b>Base terms</b>.', 'Step 2: <b>sign up for AdSense for YouTube</b>.', 'When Step 3 <b>Get reviewed</b> shows as In progress, tell us below. YouTube won\'t notify you, so check every day or two.']) +
         btn(s3, "I'm at Step 3", true)];
       case 'PROCESSING': return ['wait', 3, 'YouTube is checking your channel',
-        '<p>Your form is in. YouTube runs its checks and signs you to Novaro, which usually takes a few days. Nothing for you to do right now, check back here in a couple of days.</p>'];
+        '<p>Your form is in. YouTube runs its checks and signs you to Novaro P2P, which usually takes a few days. Nothing for you to do right now, check back here in a couple of days.</p>'];
       case 'TO_ADD': return ['wait', 3, "We're adding you to our list",
-        '<p>YouTube needs your channel on Novaro\'s list before it can sign you. We add it automatically, so there\'s nothing for you to do. Check back in 2 to 3 days.</p>'];
+        '<p>YouTube needs your channel on Novaro P2P\'s list before it can sign you. We add it automatically, so there\'s nothing for you to do. Check back in 2 to 3 days.</p>'];
       case 'SIGNUP_ONLY': return ['act', 2, "You're halfway there",
-        '<p>You\'ve signed up with Novaro, but YouTube\'s form (step 2) hasn\'t come through yet.</p>' +
+        '<p>You\'ve signed up with Novaro P2P, but YouTube\'s form (step 2) hasn\'t come through yet.</p>' +
         list(['Open YouTube\'s form below. Your details are filled in.', 'Use the <b>email that owns your YouTube channel</b>.', 'Tick <b>NOVARO</b> and submit. Then check back here in a day or two.']) + TICK +
         btn(form, "Open YouTube's form", true)];
       case 'FORM_EMAIL': return ['act', 2, "YouTube couldn't match your email",
@@ -373,12 +373,12 @@
       html = '<div class="chan"><span class="badge act">Not found</span><h3>We can\'t find you yet</h3>' +
         '<p>We can\'t see <code>' + esc(last.q) + '</code> on any of our lists. If you signed up in the last hour, check back later. Otherwise:</p>' +
         list(['Try your <b>channel ID</b> instead of your handle (it starts with UC).', 'If you\'ve never signed up, start on our sign-up page. It takes two minutes.', 'Then fill in YouTube\'s form and tick <b>NOVARO</b>.']) + TICK +
-        btn(SIGNUP, 'Sign up with Novaro', true) + '</div>';
+        btn(SIGNUP, 'Sign up with Novaro P2P', true) + '</div>';
     }
     rs.forEach(function (r) {
       var v = view(r); if (!v) return;
       step = Math.max(step, v[1]); if (v[4]) needHelp = true;
-      html += '<div class="chan"><span class="badge ' + v[0] + '">' + esc(r.label || r.stage) + '</span>' +
+      html += '<div class="chan"><span class="badge ' + v[0] + '">' + esc((r.label || r.stage).replace(/Novaro(?! P2P)/, 'Novaro P2P')) + '</span>' +
         '<h3>' + v[2] + '</h3><div class="who">' + esc(r.handle) + (r.handle ? ' · ' : '') + esc(r.id) + '</div>' + v[3] + '</div>';
     });
     if (rs.length > 1) {
@@ -448,8 +448,8 @@
     };
     fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
       .then(function (r) { return r.json(); })
-      .then(function (j) { if (!j.ok) throw new Error(j.error); $('help').innerHTML = '<div class="status okay">Thanks ' + esc(name.split(' ')[0]) + ', that\'s with the Novaro team. We\'ll email you at ' + esc(email) + '.</div>'; })
-      .catch(function () { b.disabled = false; b.innerHTML = 'Send to Novaro <span class="arrow">→</span>'; st.className = 'status err'; st.textContent = "Sorry, that didn't send. Please try again."; });
+      .then(function (j) { if (!j.ok) throw new Error(j.error); $('help').innerHTML = '<div class="status okay">Thanks ' + esc(name.split(' ')[0]) + ', that\'s with the Novaro P2P team. We\'ll email you at ' + esc(email) + '.</div>'; })
+      .catch(function () { b.disabled = false; b.innerHTML = 'Send to Novaro P2P <span class="arrow">→</span>'; st.className = 'status err'; st.textContent = "Sorry, that didn't send. Please try again."; });
   });
 })();
 </script>
